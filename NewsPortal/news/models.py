@@ -20,6 +20,9 @@ class Author(models.Model):
 class Category(models.Model):
     name = models.CharField(max_length = 26, unique = True)
     
+    def __str__(self):
+        return self.name.title()
+    
 class Post(models.Model):
     news = "NW"
     articles = "AR"
@@ -28,7 +31,7 @@ class Post(models.Model):
         (articles, "Статья")
     ]
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
-    post_type = models.IntegerField(max_length = 2, choices = POST_TYPES, default = news)
+    post_type = models.CharField(max_length = 2, choices = POST_TYPES, default = news)
     date_in = models.DateTimeField(auto_now_add=True)
     category = models.ManyToManyField(Category, through="PostCategory")
     title = models.CharField(max_length = 128)
