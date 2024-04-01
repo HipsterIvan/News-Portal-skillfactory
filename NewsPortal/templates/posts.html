@@ -8,7 +8,7 @@
 
 {% block content %}
     <h1>Все новости</h1>
-    <h3>{{ time_now|date: 'd M Y' }}</h3>
+    <h3>{{ time_now }}</h3>
 
     <hr>
    {% if posts %}
@@ -22,13 +22,13 @@
            {% for post in posts %}
            <tr>
                <td>{{ post.title }}</td>
-               <td>{{ post.date_in }}</td>
-               <td>{{ post.text|truncatechars:20|censor|preview }}</td>
+               <td>{{ post.date_in|date:'d.m.Y h:m' }}</td>
+               <td>{{ post.text|censor|truncatechars:20 }}</td>
            </tr>
            {% endfor %}
 
        </table>
    {% else %}
-       <h2>Товаров нет!</h2>
+       <h2>Новостей нет!</h2>
    {% endif %}
 {% endblock content %}
