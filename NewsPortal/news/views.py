@@ -22,15 +22,16 @@ class PostsList(ListView):
     
 class PostDetail(DetailView):
     model = Post
+    ordering = '-date_in'
     template_name = 'post.html'
     context_object_name = 'post'
+    pk_url_kwarg = 'pk'
     
 class PostSearch(ListView):
     model = Post
     ordering = '-date_in'
     template_name = 'posts_search.html'
     context_object_name = 'post_search'
-    paginate_by = 3
     
     def get_queryset(self):
         queryset = super().get_queryset()
