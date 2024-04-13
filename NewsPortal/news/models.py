@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models import Sum
+from django.urls import reverse
 
 class Author(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -45,6 +46,8 @@ class Post(models.Model):
         self.save()
     def preview(self):
         return self.text[:124] + '...'
+    def get_absolute_url(self):
+        return reverse('news')
     
 class PostCategory(models.Model):
     post = models.ForeignKey(Post, on_delete = models.CASCADE)

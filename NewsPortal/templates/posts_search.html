@@ -16,7 +16,7 @@
         <input type="submit" value="Найти" />
     </form>
 
-   {% if search %}
+   {% if post_search %}
        <table>
            <tr>
                <td>Заголовок</td>
@@ -24,7 +24,7 @@
                <td>Текст</td>
            </tr>
 
-           {% for post in search %}
+           {% for post in post_search %}
             <tr>
                 <td>{{ post.title }}</td>
                 <td>{{ post.date_in|date:'d.m.Y h:m' }}</td>
