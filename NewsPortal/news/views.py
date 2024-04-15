@@ -86,7 +86,7 @@ class ArticleCreate(CreateView):
 class ArticleUpdate(UpdateView):
     form_class = PostForm
     model = Post
-    template_name = 'article_create.html'
+    template_name = 'article_edit.html'
     
     def get_queryset(self):
         return super().get_queryset().filter(post_type = 'AR')
