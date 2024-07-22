@@ -1,3 +1,5 @@
+from django.contrib.auth.decorators import login_required
+from django.views import View
 from typing import Any
 from django.db.models.query import QuerySet
 from django.forms import BaseModelForm
@@ -9,6 +11,8 @@ from datetime import datetime
 from .filters import  PostFilter
 from django.urls import reverse_lazy
 from .forms import PostForm
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.views.generic import TemplateView
 
 class PostsList(ListView):
     model = Post
@@ -47,7 +51,8 @@ class PostSearch(ListView):
         context['filterset'] = self.filterset
         return context
     
-class PostCreate(CreateView):
+class PostCreate(PermissionRequiredMixin, CreateView):
+    permission_required = ('news.add_post')
     form_class = PostForm
     model = Post
     template_name = 'post_create.html'
@@ -57,7 +62,8 @@ class PostCreate(CreateView):
         post.categoryType = 'NW'
         return super().form_valid(form)
     
-class PostUpdate(UpdateView):
+class PostUpdate(PermissionRequiredMixin, UpdateView):
+    permission_required = ('news.change_post')
     form_class = PostForm
     model = Post
     template_name = 'post_create.html'
@@ -65,7 +71,8 @@ class PostUpdate(UpdateView):
     def get_queryset(self):
         return super().get_queryset().filter(post_type = 'NW')
     
-class PostDelete(DeleteView):
+class PostDelete(PermissionRequiredMixin, DeleteView):
+    permission_required = ('news.delete_post')
     model = Post
     template_name = 'post_delete.html'
     success_url = reverse_lazy('news')
@@ -83,7 +90,7 @@ class ArticleCreate(CreateView):
         post.categoryType = 'AR'
         return super().form_valid(form)
     
-class ArticleUpdate(UpdateView):
+class ArticleUpdate(LoginRequiredMixin, UpdateView):
     form_class = PostForm
     model = Post
     template_name = 'article_edit.html'
