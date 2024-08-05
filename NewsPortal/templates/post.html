@@ -11,11 +11,13 @@
        <table>
            <tr>
                <td>Заголовок</td>
+               <td>Категории</td>
                <td>Дата публикации</td>
                <td>Текст</td>
            </tr>
            <tr>
                <td>{{ post.title }}</td>
+               <td>{{ post.category }}</td>
                <td>{{ post.date_in|date:'d.m.Y h:m' }}</td>
                <td>{{ post.text|censor|truncatechars:20 }}</td>
            </tr>

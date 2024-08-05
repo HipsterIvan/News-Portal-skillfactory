@@ -137,7 +137,7 @@ class CategoryListView(PostsList):
 def subscribe(request, pk):
     uesr = request.user
     category = Category.objects.get(id=pk)
-    category.subscribers.add(user)
+    category.subscribers.add(User)
     
     message = 'Вы успешно подписались на рассылку новостей по следующей категории'
     return render(request, 'news/subscribe.html', {'category': category, 'message': message})
